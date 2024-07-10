@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>{{ title }}</title>
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/feathericon.min.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/plugins/morris/morris.css' %}">
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}"> 
+</head>
+
+<body>
+	<div class="main-wrapper login-body">
+		<div class="login-wrapper">
+			<div class="container">
+				<div class="loginbox">
+					<div class="login-left"> <img class="img-fluid rounded-circle" src="{% static 'assets/img/kfc-logo.png' %}" alt="Logo"> </div>
+					<div class="login-right">
+						<div class="login-right-wrap">
+							<h1 class="mb-3">Đăng nhập</h1>
+							<form method="POST">
+                                {% csrf_token %}
+                                {% if errors.non_field %}
+                                    <p class="error">{{ errors.non_field }}</p>
+                                {% endif %}
+								<div class="form-group">
+									<input class="form-control" type="text" placeholder="Tài khoản" name="username"> </div>
+                                    {% if errors.username %}
+                                        <p class="error">{{ errors.username }}</p>
+                                    {% endif %}
+								<div class="form-group">
+									<input class="form-control" type="password" placeholder="Mật khẩu" name="password"> </div>
+                                    {% if errors.password %}
+                                        <p class="error">{{ errors.password }}</p>
+                                    {% endif %}
+								<div class="form-group">
+									<button class="btn btn-primary btn-block" type="submit">Đăng nhập</button>
+								</div>
+							</form>
+							<div class="text-center forgotpass"><a href="forgot-password.html">Quên mật khẩu?</a> </div>
+						
+							<div class="text-center dont-have">Chưa có tài khoản? <a href="register.html">Đăng ký ngay</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{% static 'assets/js/jquery-3.5.1.min.js' %}"></script>
+	<script src="{% static 'assets/js/popper.min.js' %}"></script>
+	<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'assets/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'assets/js/script.js' %}"></script>
+</body>
+
+</html>
