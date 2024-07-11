@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'User',
     'Dashboard',
+    'Combo',
+    'Food',
+    'Coupon',
+    'Order',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'FoodManagementSystem.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'FoodManagementSystem.urls'

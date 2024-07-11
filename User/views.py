@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.utils.translation import gettext_lazy as _
 
 class Login(View):
@@ -37,3 +37,8 @@ class Login(View):
             "password": password,
         }
         return render(request, self.template_name, data)
+
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return redirect('login')
