@@ -129,9 +129,8 @@
 						</li>
 						<li class="submenu"> <a href="#"><i class="fas fa-hamburger"></i> <span>Sản phẩm</span> <span class="menu-arrow"></span></a>
 							<ul class="submenu_class" style="display: none;">
-								<li><a href="all-foods.html">Danh sách sản phẩm</a></li>								 
-								<li><a href="add-food.html">Thêm sản phẩm</a></li>
-								<li><a href="edit-food.html">Sửa sản phẩm</a></li>
+								<li><a href="{% url 'food_list' %}">Danh sách sản phẩm</a></li>								 
+								<li><a href="{% url 'food_add' %}">Thêm sản phẩm</a></li>
 							</ul>
 						</li>
 						<li class="submenu"> <a href="#"><i class="fas fa-utensils"></i> <span> Combo </span> <span class="menu-arrow"></span></a>
