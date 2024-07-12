@@ -8,8 +8,8 @@
             <div class="row align-items-center">
                 <div class="col">
                     <div class="mt-5">
-                        <h4 class="card-title float-left mt-2">Danh sách sản phẩm</h4> <a href="{% url 'food_add' %}"
-                            class="btn btn-primary float-right veiwbutton">Thêm sản phẩm</a>
+                        <h4 class="card-title float-left mt-2">Danh sách combo</h4> <a href="{% url 'combo_create' %}"
+                            class="btn btn-primary float-right veiwbutton">Thêm combo</a>
                     </div>
                 </div>
             </div>
@@ -18,24 +18,16 @@
             <div class="col-lg-12">
                 <form>
                     <div class="row formtype">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <input class="form-control" type="text" name="q" placeholder="Nhập từ khóa tìm kiếm">
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <select class="form-control" id="sel3" name="in_stock">
-                                    <option value="">Chọn trạng thái</option>
-                                    <option value="true">Còn hàng</option>
-                                    <option value="false">Hết hàng</option>
-                                </select>
-                            </div>
+                        <div class="col-md-4">
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary float-right">Tìm kiếm</button>
+                                <button type="button" class="btn btn-primary float-right">Tìm kiếm</button>
                             </div>
                         </div>
                     </div>
@@ -43,20 +35,26 @@
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-4 g-3">
-            {% for food in foods %}
-                <div class="col-md-3 mb-4">
+            {% for combo in combos %}
+                <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="{{ food.image.url }}" class="card-img-top" alt="{{ food.product_name }}">
+                        <img src="{{ combo.image.url }}" class="card-img-top" alt="{{ combo.combo_name }}">
                         <div class="card-body" style="padding-bottom: 0px;">
-                            <h5 class="card-title font-weight-bold">{{ food.product_name }}</h5>
-                            <p class="card-text text-muted">Mã sản phẩm: {{ food.product_code }}</p>
-                            <p class="card-text font-weight-bold">{{ food.unit_price }}₫</p>
-                            <p class="card-text">Số lượng: {{ food.quantity }}</p>
+                            <h5 class="card-title">{{ combo.combo_name }}</h5>
+                            <p class="card-text">Mã Combo: {{ combo.combo_code }}</p>
+                            <p class="card-text">Đơn giá: {{ combo.unit_price }}₫</p>
+                            <p class="card-text">Số lượng: {{ combo.quantity }}</p>
+                            <p class="card-text">Sản phẩm:</p>
+                            <ul>
+                                {% for product in combo.products.all %}
+                                <li>{{ product.product_name }}</li>
+                                {% endfor %}
+                            </ul>
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-between">
-                                <a class="btn btn-success btn-sm" href="{% url 'food_edit' food.id %}">Sửa</a>
-                                <form action="{% url 'food_delete' food.id %}" method="post">
+                                <a class="btn btn-success btn-sm" href="{% url 'combo_update' combo.id %}">Sửa</a>
+                                <form action="{% url 'combo_delete' combo.id %}" method="post">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
                                 </form>
@@ -70,8 +68,7 @@
     <div id="delete_asset" class="modal fade delete-modal" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-body text-center"> <img src="assets/img/sent.png" alt="" width="50"
-                        height="46">
+                <div class="modal-body text-center"> <img src="assets/img/sent.png" alt="" width="50" height="46">
                     <h3 class="delete_class">Bạn có chắc chắn muốn xóa nội dung này không?</h3>
                     <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Hủy</a>
                         <button type="submit" class="btn btn-danger">Xóa</button>

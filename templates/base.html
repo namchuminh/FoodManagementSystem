@@ -100,7 +100,7 @@
 								<p class="text-muted mb-0">Quản trị viên</p>
 							</div>
 						</div> <a class="dropdown-item" href="profile.html">Thông tin cá nhân</a> <a class="dropdown-item"
-							href="login.html">Đăng xuất</a>
+							href="{% url 'logout' %}">Đăng xuất</a>
 					</div>
 				</li>
 			
@@ -135,9 +135,8 @@
 						</li>
 						<li class="submenu"> <a href="#"><i class="fas fa-utensils"></i> <span> Combo </span> <span class="menu-arrow"></span></a>
 							<ul class="submenu_class" style="display: none;">
-								<li><a href="all-combo.html">Danh sách combo </a></li>
-								<li><a href="add-combo.html">Thêm combo </a></li>
-								<li><a href="edit-combo.html">Sửa combo </a></li>
+								<li><a href="{% url 'combo_list' %}">Danh sách combo </a></li>
+								<li><a href="{% url 'combo_create' %}">Thêm combo </a></li>
 							</ul>
 						</li>
 						<li class="submenu"> <a href="#"><i class="fas fa-percent"></i> <span> Mã giảm giá </span> <span class="menu-arrow"></span></a>
