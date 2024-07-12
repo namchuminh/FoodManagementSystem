@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content%}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header mt-5">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Thông tin cá nhân</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                        <li class="breadcrumb-item active">Thông tin cá nhân</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-header">
+                    <div class="row align-items-center">
+                        <div class="col-auto profile-image">
+                            <a href="#"> <img class="rounded-circle" alt="User Image" src="{% static 'assets/img/profiles/avatar-01.jpg' %}"> </a>
+                        </div>
+                        <div class="col ml-md-n2 profile-user-info">
+                            <h4 class="user-name mb-3">{{ user.first_name }} {{ user.last_name }}</h4>
+                            <h6 class="text-muted mt-1">Giám đốc</h6>
+                            <div class="user-Location mt-1"><i class="fas fa-map-marker-alt"></i> Thanh Xuân, Hà Nội</div>
+                            <div class="about-text">Quản lý cửa hàng</div>
+                        </div>
+                        <div class="col-auto profile-btn"> <a href="" class="btn btn-primary">
+                        Tin nhắn
+                        </a> <a href="{% url 'update_user' %}" class="btn btn-primary">
+                        Sửa
+                        </a> </div>
+                    </div>
+                </div>
+                <div class="profile-menu">
+                    <ul class="nav nav-tabs nav-tabs-solid">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#per_details_tab">Thông tin</a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#password_tab">Mật khẩu</a> </li>
+                    </ul>
+                </div>
+                <div class="tab-content profile-tab-cont">
+                    <div class="tab-pane fade show active" id="per_details_tab">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-flex justify-content-between">
+                                            <span>Thông tin chi tiết</span>
+                                            <a class="edit-link" data-toggle="modal" href="#edit_personal_details"><i class="fa fa-edit mr-1"></i>Sửa</a>
+                                            </h5>
+                                        <div class="row mt-5">
+                                            <p class="col-sm-3 text-sm-right mb-0 mb-sm-3">Họ và tên</p>
+                                            <p class="col-sm-9">{{ user.first_name }} {{ user.last_name }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-sm-3 text-sm-right mb-0 mb-sm-3">Tài Khoản</p>
+                                            <p class="col-sm-9">{{ user.username }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-sm-3 text-sm-right mb-0 mb-sm-3">Email</p>
+                                            <p class="col-sm-9"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caaeabbca3aeaba6bcabb8afb08aafb2aba7baa6afe4a9a5a7">{{ user.email }}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div id="password_tab" class="tab-pane fade">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Đổi mật khẩu</h5>
+                                <div class="row">
+                                    <div class="col-md-10 col-lg-6">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label>Mật khẩu cũ</label>
+                                                <input type="password" name="old_password" class="form-control"> </div>
+                                            <div class="form-group">
+                                                <label>Mật khẩu mới</label>
+                                                <input type="password" name="new_password1" class="form-control"> </div>
+                                            <div class="form-group">
+                                                <label>Nhập lại mật khẩu</label>
+                                                <input type="password" name="new_password2" class="form-control"> </div>
+                                            <button class="btn btn-primary" type="submit">Lưu</button>
+                                        </form>
+                                        {% if messages %}
+                                            {% for message in messages %}
+                                                <p class="text-center alert alert-{{ message.tags }}">
+                                                    {{ message }}
+                                                </p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}
