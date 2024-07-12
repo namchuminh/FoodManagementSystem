@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content%}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="mt-5">
+                        <h4 class="card-title float-left mt-2">Mã giảm giá</h4>
+                        <a href="{% url 'coupon_create' %}" class="btn btn-primary float-right veiwbutton">Thêm mã giảm
+                            giá</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="pricing py-5">
+                    <div class="container">
+                        <div class="row  mt-5">
+                            {% for coupon in coupons %}
+                                <div class="col-lg-3">
+                                    <div class="card mb-5 mb-lg-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-muted text-uppercase text-center">{{ coupon.coupon_code }}</h5>
+                                            <h6 class="card-price text-center mt-3">{{ coupon.discount_rate }}%<span class="period"></span></h6>
+                                            <hr>
+                                            <ul class="fa-ul">
+                                                <li><span class="fa-li"><i class="fas fa-check"></i></span>Giảm {{ coupon.discount_rate }}%/đơn hàng</li>
+                                            </ul>
+                                            <div class="text-center">
+                                                <span>Ngày hết hạn:</span>
+                                                <span class="font-weight-bold">{{ coupon.expiration_date|date:"d/m/Y" }}</span>
+                                            </div>
+                                            <hr>
+                                            <a href="{% url 'coupon_update' coupon.pk %}" class="btn btn-block btn-primary text-uppercase">Chỉnh sửa</a>
+                                            <a class="btn btn-block btn-primary text-uppercase" href="{% url 'coupon_delete' coupon.pk %}">Xóa</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div id="delete_asset" class="modal fade delete-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <img src="assets/img/sent.png" alt="" width="50" height="46" />
+              <h3 class="delete_class">
+                Bạn có muốn xoa mã giảm giá này không?
+              </h3>
+              <div class="m-t-20">
+                <a href="#" class="btn btn-white" data-dismiss="modal"
+                  >Hủy</a
+                >
+                <button type="submit" class="btn btn-danger">Xóa</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock content%}
