@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Tạo hóa đơn
+{% endblock title %}
+
+{% block content%}
+<div class="page-wrapper" style="min-height: 491px;">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title mt-5">Tạo đơn hàng</h3> </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row formtype " style="  display: flex;
+                    align-items: center;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Tên Khách Hàng</label>
+                                <input class="form-control" type="text" placeholder="Nguyễn Văn An" name="customer" value="{{ form.initial.customer }}"> 
+                                {% if form.customer.errors %}
+                                    <p class="error">
+                                        {% for error in form.customer.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>							
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" name="phone" placeholder="0999888999" value="{{ form.initial.phone }}">
+                                {% if form.phone.errors %}
+                                    <p class="error">
+                                        {% for error in form.phone.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>	
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Mã giảm giá</label>
+                                <select class="form-control" id="sel3" name="coupon">
+                                    <option value="" selected>Không Chọn</option>
+                                    {% for coupon in coupons %}
+                                        {% if coupon.id == form.initial.coupon %}
+                                            <option value="{{ coupon.id }}" selected>{{ coupon.coupon_code }}</option>
+                                        {% else %}
+                                            <option value="{{ coupon.id }}">{{ coupon.coupon_code }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                {% if form.coupon.errors %}
+                                    <p class="error">
+                                        {% for error in form.coupon.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>													
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <textarea class="form-control" rows="5" id="comment" name="note">{{ form.initial.note }}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Tổng tiền:</label>
+                                <span class="font-weight-bold" style="color: red;">{{ form.initial.amount }}đ</span>										
+                            </div>
+                        </div>	
+                        <div class="col-md-3"></div>		
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3">
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary buttonedit1">Tạo</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

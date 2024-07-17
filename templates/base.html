@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-	<title>{{ title }}</title>
+	<title>{% block title %}{% endblock title %}</title>
 	<link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}">
@@ -120,11 +120,10 @@
 					<ul>
 						<li> <a class="active" href="index.html"><i class="fas fa-home"></i> <span>Trang chủ</span></a> </li>
 						<li class="list-divider"></li>
-						<li class="submenu"> <a href="#"><i class="far fa-money-bill-alt"></i> <span> Đơn hàng </span> <span class="menu-arrow"></span></a>
+						<li class="submenu"> <a href="#"><i class="far fa-money-bill-alt"></i> <span> Hóa đơn </span> <span class="menu-arrow"></span></a>
 							<ul class="submenu_class" style="display: none;">
-								<li><a href="all_bill.html"> Danh sách đơn hàng </a></li>
-								<li><a href="add-bill.html"> Thêm đơn hàng </a></li>
-								<li><a href="edit-bill.html"> Sửa thông tin hoá đơn </a></li>
+								<li><a href="{% url 'order_list' %}"> Danh sách hóa đơn </a></li>
+								<li><a href="{% url 'order_create' %}"> Thêm đơn hóa đơn </a></li>
 							</ul>
 						</li>
 						<li class="submenu"> <a href="#"><i class="fas fa-hamburger"></i> <span>Sản phẩm</span> <span class="menu-arrow"></span></a>

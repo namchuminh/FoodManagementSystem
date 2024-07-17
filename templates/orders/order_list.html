@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Danh sách hóa đơn
+{% endblock title %}
+
+{% block content%}
+<div class="page-wrapper" style="min-height: 491px;">
+    <div class="content container-fluid">
+      <div class="page-header">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="mt-5">
+              <h4 class="card-title float-left mt-2">Danh sách hóa đơn</h4>
+              <a href="{% url 'order_create' %}" class="btn btn-primary float-right veiwbutton">Thêm hóa đơn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card card-table">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-stripped table table-hover table-center mb-0">
+                  <thead>
+                    <tr>
+                      <th>Mã đơn hàng</th>
+                      <th>Khách hàng</th>
+                      <th>Số điện thoại</th>
+                      <th>Ngày tạo hóa đơn</th>
+                      <th>Giảm giá</th>
+                      <th>Tổng tiền</th>
+                      <th class="text-right">Hành đông</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for order in orders %}
+                        <tr>
+                        <td>{{ order.code }}</td>
+                        <td>{{ order.customer }}</td>
+                        <td>{{ order.phone }}</td>
+                        <td>{{ order.created_at }}</td>
+                        <td>
+                            {% if order.coupon %}
+                                {{ order.coupon.discount_rate }}%
+                            {% else %}
+                                Không có
+                            {% endif %}
+                        </td>
+                        <td>{{ order.amount }}đ</td>
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v ellipse_color"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="payment.html"><i class="far fa-money-bill-alt m-r-5"></i>
+                                Thanh toán</a>
+                                <a class="dropdown-item" href="{% url 'order_edit' pk=order.id %}"><i class="fas fa-pencil-alt m-r-5"></i> Chỉnh
+                                sửa</a>
+                                <a class="dropdown-item" href="{% url 'order_delete' pk=order.id %}"><i class="fas fa-trash-alt m-r-5"></i> Xóa</a>
+                            </div>
+                            </div>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
