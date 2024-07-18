@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Menu món ăn
+{% endblock title %}
+
+{% block content%}
+<div class="page-wrapper" style="min-height: 491px;">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title mt-5">Menu món ăn hóa đơn</h3> </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form method="POST" class="row formtype" style="display: flex; align-items: center;">
+                    {% csrf_token %}
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Danh sách đồ ăn</label>
+                            <select class="form-control" id="sel3" name="food">
+                                {% for food in add_food_form.fields.food.queryset %}
+                                    <option value="{{ food.id }}">{{ food.product_name }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if add_food_form.food.errors %}
+                                <p class="error">
+                                    {% for error in add_food_form.food.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Số lượng</label>
+                            <input class="form-control" type="number" name="quantity" placeholder="1">
+                            {% if add_food_form.quantity.errors %}
+                                <p class="error">
+                                    {% for error in add_food_form.quantity.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label><i class="fas fas-none"></i></label>
+                            <input style="color: white;" class="form-control btn-primary" type="submit" name="add_food" value="Thêm Món Ăn">
+                        </div>
+                    </div>
+                </form>
+                
+                <form method="POST" class="row formtype" style="display: flex; align-items: center;">
+                    {% csrf_token %}
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Danh sách combo</label>
+                            <select class="form-control" id="sel3" name="combo">
+                                {% for combo in add_combo_form.fields.combo.queryset %}
+                                    <option value="{{ combo.id }}">{{ combo.combo_name }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if add_combo_form.combo.errors %}
+                                <p class="error">
+                                    {% for error in add_combo_form.combo.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Số lượng</label>
+                            <input class="form-control" type="number" name="quantity" placeholder="1">
+                            {% if add_combo_form.quantity.errors %}
+                                <p class="error">
+                                    {% for error in add_combo_form.quantity.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label><i class="fas fas-none"></i></label>
+                            <input style="color: white;" class="form-control btn-primary" type="submit" name="add_combo" value="Thêm Combo">
+                        </div>
+                    </div>
+                </form>
+                <div class="row formtype " style="  display: flex;
+                align-items: center;">
+                    <div class="col-md-12">
+                        <div>
+                            <h4>Danh sách món ăn + combo</h4>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card card-table">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-stripped table table-hover table-center mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Tên món ăn hoặc combo</th>
+                                                            <th>Số lượng</th>
+                                                            <th class="text-right">Đơn giá</th>
+                                                            <th class="text-right">Thành tiền</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for detail in details %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }}</td>
+                                                                <td>
+                                                                    {% if detail.food %}
+                                                                        {{ detail.food.product_name }}
+                                                                    {% else %}
+                                                                        {{ detail.combo.combo_name }}
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>{{ detail.quantity }}</td>
+                                                                <td class="text-right">
+                                                                    {% if detail.food %}
+                                                                        {{ detail.food.unit_price }}đ
+                                                                    {% else %}
+                                                                        {{ detail.combo.unit_price }}đ
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    {{ detail.total_price }}đ
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Tổng tiền:</label>
+                            <span class="font-weight-bold" style="color: red;">{{ amount }}đ</span>										
+                        </div>
+                    </div>	
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

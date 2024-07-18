@@ -17,6 +17,7 @@ class Order(models.Model):
     coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Coupon Code")
     note = models.TextField(default=None, null=True, blank=True)
     amount = models.PositiveIntegerField(verbose_name="Amount", default=0)
+    payment = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
         return f"Order {self.code} by {self.customer}"
